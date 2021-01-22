@@ -12,12 +12,15 @@ class ToDoListWidget extends StatelessWidget {
         itemCount: tasks.length,
         itemBuilder: (context, index) {
           final task = tasks[index];
-          return ListTile(
-            title: Text(task.name),
-            subtitle: Text(task.id),
-            trailing: Checkbox(
-              onChanged: null,
-              value: task.isFinished,
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: ListTile(
+              title: Text(task.name),
+              subtitle: Text(task.id),
+              trailing: Checkbox(
+                onChanged: null,
+                value: task.isFinished,
+              ),
             ),
           );
         });

@@ -49,7 +49,7 @@ class _ToDoPageState extends State<ToDoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('ToDo')),
+      appBar: AppBar(title: Text('Task Management')),
       body: _buildBody(),
     );
   }
@@ -70,9 +70,17 @@ class _ToDoPageState extends State<ToDoPage> {
     return Row(
       children: [
         Expanded(
-          child: TextField(
-            controller: taskController,
-            decoration: InputDecoration(hintText: 'Please enter to do task'),
+          child: BlocBuilder<TaskOperatorBloc, TaskOperatorState>(
+            buildWhen: (previousState, state) =>
+                previousState is TaskOperating || state is TaskOperating,
+            builder: (context, state) {
+              return TextField(
+                controller: taskController,
+                decoration:
+                    InputDecoration(hintText: 'Please enter task content'),
+                enabled: state is! TaskOperating,
+              );
+            },
           ),
         ),
         BlocConsumer<TaskOperatorBloc, TaskOperatorState>(
